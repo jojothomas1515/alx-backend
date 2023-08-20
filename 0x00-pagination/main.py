@@ -28,6 +28,7 @@ print(res)
 print(server.get_hyper_index(res.get('next_index'), page_size))
 
 # 3- remove the first index
+print(server._Server__indexed_dataset[res.get('index')])
 del server._Server__indexed_dataset[res.get('index')]
 print("Nb items: {}".format(len(server._Server__indexed_dataset)))
 
