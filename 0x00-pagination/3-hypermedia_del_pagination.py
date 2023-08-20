@@ -6,6 +6,7 @@ Deletion-resilient hypermedia pagination
 import csv
 import math
 from typing import List, Dict
+from itertools import islice
 
 
 class Server:
@@ -41,17 +42,17 @@ class Server:
 
     def get_hyper_index(self, index: int = None, page_size: int = 10) -> Dict:
         """."""
-        # li = self.dataset()[index: index + page_size]
+        if index is None:
+            index = 0
         ds: Dict = self.indexed_dataset()
-        next_idx = None
-        for i in range(page_size + index, len(ds)):
-            if ds.get(page_size + index - 1):
-                next_idx = i
-                break
-            elif ds.get(i):
-                next_idx = i
-                break
-        li = [ds.get(i) for i in range(index, index + page_size) if ds.get(i)]
+
+        assert (index < len(ds))
+
+        li = [i for i in islice(ds.values(), index,
+                                (page_size + index))]
+        next_idx = [i for i in islice(
+            ds.keys(), index, (page_size + index))]
+        next_idx = next_idx[page_size - 1] + 1
         return {
             "index": index,
             "data": li,
