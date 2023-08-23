@@ -14,7 +14,7 @@ class FIFOCache(BaseCaching):
         key: identifier for item in the cache dick
         item: item to add to the cache
         """
-        if not key and not item:
+        if not key or not item:
             return
         self.cache_data[key] = item
 

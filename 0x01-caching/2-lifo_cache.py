@@ -14,7 +14,7 @@ class LIFOCache(BaseCaching):
         key: identifier for item in the cache dick
         item: item to add to the cache
         """
-        if not key and not item:
+        if not key or not item:
             return
         if self.cache_data.get(key):
             self.cache_data.pop(key)
