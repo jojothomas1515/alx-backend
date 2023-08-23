@@ -8,7 +8,7 @@ class LIFOCache(BaseCaching):
     """Last In First Out."""
 
     def put(self, key, item):
-       """Put method for cache insertion.
+        """Put method for cache insertion.
 
         Args:
         key: identifier for item in the cache dick
