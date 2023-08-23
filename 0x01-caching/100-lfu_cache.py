@@ -38,7 +38,7 @@ class LFUCache(BaseCaching):
         self.cache_data[key] = item
         # add the key frequency
         if self.key_freq.get(key) is None:
-            self.key_freq[key] = 0
+            self.key_freq[key] = 1
         else:
             # increment the key frequency when move to the end of the dict
             self.key_freq[key] = self.key_freq.get(key) + 1
@@ -48,7 +48,7 @@ class LFUCache(BaseCaching):
 
         Args:
         key: identifier for item to get from cache
-        Return: item or None
+        Return: item or None.
         """
         item = self.cache_data.get(key)
         if item:
