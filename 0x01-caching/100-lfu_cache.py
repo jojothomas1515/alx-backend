@@ -31,6 +31,7 @@ class LFUCache(BaseCaching):
             k = min(di, key=lambda x: self.key_freq.get(x))
             di.pop(k)
             self.key_freq.pop(k)
+            print(f"DISCARD: {k}")
 
         # if the item is in the cache, move it to the end
         if self.cache_data.get(key):
