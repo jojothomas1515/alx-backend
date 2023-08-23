@@ -40,7 +40,7 @@ class Server:
         return self.__indexed_dataset
 
     def get_hyper_index(self, index: int = None, page_size: int = 10) -> Dict:
-        """."""
+        """This is hypermedia pagination function."""
         # li = self.dataset()[index: index + page_size]
         ds: Dict = self.indexed_dataset()
         next_idx = None
