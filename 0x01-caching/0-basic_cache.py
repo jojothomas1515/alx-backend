@@ -3,9 +3,9 @@
 
 from base_caching import BaseCaching
 
+
 class BasicCache(BaseCaching):
     """Create a basic cache instance."""
-
 
     def put(self, key, item) -> None:
         """Add item to the cache_data.
