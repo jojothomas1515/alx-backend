@@ -31,4 +31,6 @@ class FIFOCache(BaseCaching):
         key: identifier for item to get from cache
         Return: item or None
         """
-        return self.cache_data.get(key)
+        if key:
+            return self.cache_data.get(key)
+        return None
