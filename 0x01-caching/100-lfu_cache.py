@@ -22,22 +22,25 @@ class LFUCache(BaseCaching):
         if not key or not item:
             return
 
+        # remove the item that is least frequently used
+        # if the cache if full
         if not self.cache_data.get(key) \
                 and len(self.cache_data) + 1 > self.MAX_ITEMS:
             di = self.cache_data
+            # get the key with the lowest number
             k = min(di, key=lambda x: self.key_freq.get(x))
-            print(self.key_freq)
-
             di.pop(k)
             self.key_freq.pop(k)
-            print(f"DISCARD: {k}")
 
+        # if the item is in the cache, move it to the end
         if self.cache_data.get(key):
             self.cache_data.pop(key)
         self.cache_data[key] = item
+        # add the key frequency
         if self.key_freq.get(key) is None:
             self.key_freq[key] = 0
         else:
+            # increment the key frequency when move to the end of the dict
             self.key_freq[key] = self.key_freq.get(key) + 1
 
     def get(self, key):
@@ -49,5 +52,6 @@ class LFUCache(BaseCaching):
         """
         item = self.cache_data.get(key)
         if item:
+            # move the item to the end of the cache and increment the frequency
             self.put(key, item)
         return item
