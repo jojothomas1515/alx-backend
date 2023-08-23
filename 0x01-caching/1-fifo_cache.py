@@ -7,6 +7,10 @@ from base_caching import BaseCaching
 class FIFOCache(BaseCaching):
     """Last In First Out."""
 
+    def __init__(self):
+        """Construct method."""
+        super().__init__()
+
     def put(self, key, item):
         """."""
         if not key and not item:
