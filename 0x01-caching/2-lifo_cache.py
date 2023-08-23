@@ -8,7 +8,12 @@ class LIFOCache(BaseCaching):
     """Last In First Out."""
 
     def put(self, key, item):
-        """."""
+       """Put method for cache insertion.
+
+        Args:
+        key: identifier for item in the cache dick
+        item: item to add to the cache
+        """
         if not key and not item:
             return
         if self.cache_data.get(key):
@@ -22,5 +27,10 @@ class LIFOCache(BaseCaching):
             print(f"DISCARD: {k}")
 
     def get(self, key):
-        """Get data with key."""
+        """Get data with key.
+
+        Args:
+        key: identifier for item to get from cache
+        Return: item or None
+        """
         return self.cache_data.get(key)
