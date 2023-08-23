@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""LRU cache module."""
+"""MRU cache module."""
 
 from base_caching import BaseCaching
 
 
-class LRUCache(BaseCaching):
+class MRUCache(BaseCaching):
     """Last Recently Used cache class to create instance."""
 
     def put(self, key, item):
@@ -22,7 +22,7 @@ class LRUCache(BaseCaching):
 
         if len(self.cache_data) > self.MAX_ITEMS:
             di = self.cache_data
-            k = [*di.keys()][0]
+            k = [*di.keys()][-2]
             di.pop(k)
             print(f"DISCARD: {k}")
 
