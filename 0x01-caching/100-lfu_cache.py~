@@ -1,11 +1,16 @@
 #!/usr/bin/env python3
-"""LRU cache module."""
+"""LFU cache module."""
 
 from base_caching import BaseCaching
 
 
-class LIFOCache(BaseCaching):
+class LFUCache(BaseCaching):
     """Last Recently Used cache class to create instance."""
+
+    def __init__(self):
+        """Initialize lfu cache instance."""
+        super().__init__()
+        self.key_freq = {}
 
     def put(self, key, item):
         """Put method for cache insertion.
@@ -19,11 +24,14 @@ class LIFOCache(BaseCaching):
         if self.cache_data.get(key):
             self.cache_data.pop(key)
         self.cache_data[key] = item
+        if not self.key_freq.get(key):
+            self.key_freq[key] = 0
 
         if len(self.cache_data) > self.MAX_ITEMS:
             di = self.cache_data
-            k = [*di.keys()][-2]
+            k = min(di, key=lambda x: self.key_freq.get(x))
             di.pop(k)
+            self.key_freq.pop(k)
             print(f"DISCARD: {k}")
 
     def get(self, key):
@@ -33,8 +41,7 @@ class LIFOCache(BaseCaching):
         key: identifier for item to get from cache
         Return: item or None
         """
-
-        item = self.cache_data.get(key):
+        item = self.cache_data.get(key)
         if item:
             self.put(key, item)
         return item
