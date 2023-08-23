@@ -12,7 +12,7 @@ class FIFOCache(BaseCaching):
         super().__init__()
 
     def put(self, key, item):
-        """."""
+        """Put method for cache insertion."""
         if not key and not item:
             return
         self.cache_data[key] = item
