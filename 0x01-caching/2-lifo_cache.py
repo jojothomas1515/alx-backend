@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""LIFO."""
+"""LIFO cache module."""
 
 from base_caching import BaseCaching
 
