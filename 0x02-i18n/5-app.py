@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Flask app for i18n and l10n."""
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, g
 from flask_babel import Babel
 
 
@@ -41,10 +41,18 @@ def get_locale():
 def get_user():
     """Return active user."""
     uid = request.values.get("login_as")
-    return users.get(uid)
+    if uid:
+        return users.get(int(uid))
+    return None
+
 
 @app.before_request
-def before_request
+def before_request():
+    """To run befor request."""
+    user = get_user()
+    if user:
+        g.user = user
+
 
 @app.route("/", methods=["GET"])
 def index():
