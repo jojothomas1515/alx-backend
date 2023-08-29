@@ -9,6 +9,13 @@ app = Flask(__name__)
 application = app
 babel = Babel(app)
 
+users = {
+    1: {"name": "Balou", "locale": "fr", "timezone": "Europe/Paris"},
+    2: {"name": "Beyonce", "locale": "en", "timezone": "US/Central"},
+    3: {"name": "Spock", "locale": "kg", "timezone": "Vulcan"},
+    4: {"name": "Teletubby", "locale": None, "timezone": "Europe/London"},
+}
+
 
 class Config(object):
     """Accepted languages."""
@@ -31,10 +38,18 @@ def get_locale():
     )
 
 
+def get_user():
+    """Return active user."""
+    uid = request.values.get("login_as")
+    return users.get(uid)
+
+@app.before_request
+def before_request
+
 @app.route("/", methods=["GET"])
 def index():
     """Entry route."""
-    return render_template("0-index.html")
+    return render_template("5-index.html")
 
 
 if __name__ == "__main__":
