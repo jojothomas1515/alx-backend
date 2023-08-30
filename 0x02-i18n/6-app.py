@@ -33,14 +33,16 @@ def get_locale():
     locale = request.args.get('locale')
     if locale in app.config['LANGUAGES']:
         return locale
-    # if g.user and g.user['locale'] in app.config["LANGUAGES"]:
-    #     return g.user['locale']
-    # header_locale = request.headers.get('locale', '')
-    # if header_locale in app.config["LANGUAGES"]:
-    #     return header_locale
-    return request.accept_languages.best_match(
-        app.config["LANGUAGES"]
-    )
+    elif g.user and g.user.get("locale"):
+        locale = g.user.get("locale")
+        return locale \
+            if locale in app.config["LANGUAGES"] \
+            else app.config["BABEL_DEFAULT_LOCALE"]
+    elif request.accept_languages:
+        return request.accept_languages.best_match(
+            app.config["LANGUAGES"]
+        )
+    return app.config["BABEL_DEFAULT_LOCALE"]
 
 
 def get_user():
@@ -60,6 +62,8 @@ def before_request():
     user = get_user()
     if user:
         g.user = user
+    else:
+        g.user = None
 
 
 @app.route("/", methods=["GET"])
