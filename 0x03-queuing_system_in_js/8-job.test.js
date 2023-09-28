@@ -16,15 +16,15 @@ describe("test for createPushNotificationsJobs", () => {
   });
 
   it("add object to a queue", () => {
-    queue.createJob("push_notif", { name: "jojo thomas" }).save();
+    createPushNotificationJobs([{ name: "jojo thomas" }], queue);
     expect(queue.testMode.jobs.length).to.equal(1);
-    queue.createJob("push_notif", { name: "joseph thomas" }).save();
+    createPushNotificationJobs([{ name: "joseph thomas" }], queue);
     expect(queue.testMode.jobs.length).to.equal(2);
   });
   it("add object to a queue and check if content is correct", () => {
-    queue.createJob("push_notif", { name: "jojo thomas" }).save();
+    createPushNotificationJobs([{ name: "jojo thomas" }], queue);
     expect(queue.testMode.jobs[0].data).to.be.eql({ name: "jojo thomas" });
-    queue.createJob("push_notif", { name: "joseph thomas" }).save();
+    createPushNotificationJobs([{ name: "joseph thomas" }], queue);
     expect(queue.testMode.jobs[1].data).to.be.eql({ name: "joseph thomas" });
   });
 });
